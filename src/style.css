@@ -1,0 +1,11 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    max-width: 1024px;
+    margin: auto;
+}
+
+.name {
+    text-align: center;
+    font-family: 'Amatic SC', cursive;
+    color: red;
+}
