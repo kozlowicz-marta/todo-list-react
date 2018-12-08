@@ -9,6 +9,7 @@ export default class ToDoList extends React.Component {
 
         this.state = {
             list: [],
+            activeFilter: 'all'
         }
     }
 
@@ -26,6 +27,7 @@ export default class ToDoList extends React.Component {
                 ...this.state.list,
                 {
                     value,
+                    active: true,
                     id: this.currentId++
                 }
             ]
@@ -41,13 +43,21 @@ export default class ToDoList extends React.Component {
                 ...myState.list.slice(0, itemIndex),
                 {
                     ...item,
+                    active: !item.active
                 },
                 ...myState.list.slice(itemIndex + 1)
             ]
         }))
     }
 
+    setFilter = type => () => {
+        this.setState({
+            activeFilter: type
+        })
+    }
+
     render() {
+        const { activeFilter } = this.state
 
         return (
             <div>
@@ -60,10 +70,21 @@ export default class ToDoList extends React.Component {
 
                 <ul>
                     {this.state.list
+                        .filter(item => {
+                            switch (activeFilter) {
+                                case 'active':
+                                    return item.active
+                                case 'done':
+                                    return !item.active
+                                default:
+                                    return true
+                            }
+                        })
                         .map((item) => (
                             <li
                                 key={item.id}
                                 onClick={this.itemClick(item.id)}
+                                className={item.active ? 'active' : 'done'}
                             >
                                 {item.value}
                             </li>
@@ -71,6 +92,11 @@ export default class ToDoList extends React.Component {
                     }
                 </ul>
 
+                <div>
+                    <button onClick={this.setFilter('all')} className='btn'>All</button>
+                    <button onClick={this.setFilter('active')} className='btn'>Active</button>
+                    <button onClick={this.setFilter('done')} className='btn'>Done</button>
+                </div>
             </div>
         )
     }
