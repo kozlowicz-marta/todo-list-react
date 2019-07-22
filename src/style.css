@@ -9,3 +9,24 @@ body {
     font-family: 'Amatic SC', cursive;
     color: red;
 }
+
+.input {
+    width: 170px;
+    height: 30px;
+}
+
+.active {
+    color: black;
+    cursor: pointer;
+}
+
+.done {
+    color: rgb(103, 224, 103);
+}
+
+.btn {
+    width: 50px;
+    height: 20px;
+    margin: 4px;
+    cursor: pointer;
+}
